@@ -1,0 +1,226 @@
+﻿<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="utf-8" />
+    <title>Lightning Talks Timer</title>
+    <script type="text/javascript">
+<!--
+		countA = 0;
+		countB = 0;
+		time = 0;
+		loop = 0;
+        loopCount = 1;
+
+        // This function is LUN Button Event
+        function RUN() {
+            loopCount = 1;
+            next();
+        }
+
+		function next() {
+            mySelectMinA = document.myForm.timerMinA.selectedIndex;
+            minA = eval(document.myForm.timerMinA.options[mySelectMinA].value);
+            mySelectSecA = document.myForm.timerSecA.selectedIndex;
+            secA = eval(document.myForm.timerSecA.options[mySelectSecA].value);
+			countA = minA * 60 + secA;
+
+            mySelectMinB = document.myForm.timerMinB.selectedIndex;
+            minB = eval(document.myForm.timerMinB.options[mySelectMinB].value);
+            mySelectSecB = document.myForm.timerSecB.selectedIndex;
+            secB = eval(document.myForm.timerSecB.options[mySelectSecB].value);
+            countB = minB * 60 + secB;
+
+			mySelectLoop = document.myForm.loop.selectedIndex;
+			loop = eval(document.myForm.loop.options[mySelectLoop].value);
+
+			time = setInterval("myTimerA()", 1000);
+		}
+
+		// Play sound within 5 seconds
+        function soundBeep(seconds) {
+			if (seconds == 0) {
+				highBeep.play();
+			}
+			else if (seconds < 6) {
+				lowBeep.play();
+			}
+		}
+
+		function myTimerA() {
+			countA = countA - 1;
+			minCountA = parseInt(countA / 60);
+			secCountA = countA % 60;
+
+			soundBeep(countA);
+
+			if (secCountA < 10) {
+				secCountA = "0" + String(secCountA);
+			}
+			document.getElementById("countdown").innerHTML = minCountA + ":" + secCountA;
+
+			document.getElementById("loopcount").innerHTML = "Loop Count    " + loopCount;
+			if (countA == 0) {
+				clearInterval(time);
+				time = setInterval("myTimerB()", 1000);
+			}
+		}
+
+		function myTimerB() {
+			countB = countB - 1;
+			minCountB = parseInt(countB / 60);
+			secCountB = countB % 60;
+
+			soundBeep(countB);
+
+			if (secCountB < 10) {
+				secCountB = "0" + String(secCountB);
+			}
+			document.getElementById("countdown").innerHTML = minCountB + ":" + secCountB;
+
+			if (countB == 0) {
+				if (loop == loopCount) {
+					clearInterval(time);
+
+                    return;
+				}
+				clearInterval(time);
+				loopCount = loopCount + 1;
+				next();
+			}
+		}
+// --></script>
+
+</head>
+<body>
+
+    <form name="myForm">
+
+        <div>
+            <span>Timer A : </span>
+
+            <select name="timerMinA">
+                <option value="0"> 0 </option>
+                <option value="1"> 1 </option>
+                <option value="2"> 2 </option>
+                <option value="3"> 3 </option>
+                <option value="4"> 4 </option>
+                <option value="5"> 5 </option>
+                <option value="6"> 6 </option>
+                <option value="7"> 7 </option>
+                <option value="8"> 8 </option>
+                <option value="9"> 9 </option>
+                <option value="10"> 10 </option>
+                <option value="11"> 11 </option>
+                <option value="12"> 12 </option>
+                <option value="13"> 13 </option>
+                <option value="14"> 14 </option>
+                <option value="15"> 15 </option>
+            </select>
+
+            <span>Min</span>
+
+            <select name="timerSecA">
+                <option value="0"> 00 </option>
+                <option value="5"> 05 </option>
+                <option value="10"> 10 </option>
+                <option value="15"> 15 </option>
+                <option value="20"> 20 </option>
+                <option value="25"> 25 </option>
+                <option value="30"> 30 </option>
+                <option value="35"> 35 </option>
+                <option value="40"> 40 </option>
+                <option value="45"> 45 </option>
+                <option value="50"> 50 </option>
+                <option value="55"> 55 </option>
+            </select>
+
+            <span>Sec</span>
+        </div>
+
+        <div>
+            <span>Timer B : </span>
+
+            <select name="timerMinB">
+                <option value="0"> 0 </option>
+                <option value="1"> 1 </option>
+                <option value="2"> 2 </option>
+                <option value="3"> 3 </option>
+                <option value="4"> 4 </option>
+                <option value="5"> 5 </option>
+                <option value="6"> 6 </option>
+                <option value="7"> 7 </option>
+                <option value="8"> 8 </option>
+                <option value="9"> 9 </option>
+                <option value="10"> 10 </option>
+                <option value="11"> 11 </option>
+                <option value="12"> 12 </option>
+                <option value="13"> 13 </option>
+                <option value="14"> 14 </option>
+                <option value="15"> 15 </option>
+            </select>
+
+            <span>Min</span>
+
+            <select name="timerSecB">
+                <option value="0"> 00 </option>
+                <option value="5"> 05 </option>
+                <option value="10"> 10 </option>
+                <option value="15"> 15 </option>
+                <option value="20"> 20 </option>
+                <option value="25"> 25 </option>
+                <option value="30"> 30 </option>
+                <option value="35"> 35 </option>
+                <option value="40"> 40 </option>
+                <option value="45"> 45 </option>
+                <option value="50"> 50 </option>
+                <option value="55"> 55 </option>
+            </select>
+
+            <span>Sec</span>
+        </div>
+
+        <div>
+            <span>Loop Count</span>
+            <select name="loop">
+                <option value="0"> Endless </option>
+                <option value="1"> 1 </option>
+                <option value="2"> 2 </option>
+                <option value="3"> 3 </option>
+                <option value="4"> 4 </option>
+                <option value="5"> 5 </option>
+                <option value="6"> 6 </option>
+                <option value="7"> 7 </option>
+                <option value="8"> 8 </option>
+                <option value="9"> 9 </option>
+            </select>
+        </div>
+
+        <div>
+            <input type="button" value="RUN" onclick="RUN()">
+        </div>
+
+        <div id="time">
+            <span id="countdown">Set the time.</span>
+        </div>
+
+        <div id="loop">
+            <span id="loopcount"></span>
+        </div>
+
+    </form>
+
+
+
+
+    <audio id="highBeep">
+        <source src="resources/HighBeep.mp3" type="audio/mpeg" />
+        <source src="resources/HighBeep.WAV" type="audio/wav" />
+    </audio>
+
+    <audio id="lowBeep">
+        <source src="resources/LowBeep.mp3" type="audio/mpeg" />
+        <source src="resources/LowBeep.WAV" type="audio/wav" />
+    </audio>
+
+</body>
+</html>
